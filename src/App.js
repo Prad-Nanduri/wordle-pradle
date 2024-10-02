@@ -13,7 +13,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Welcome to Pradle!
+          Welcome to Pradle! biyaatch
         </a>
       </header>
     </div>
