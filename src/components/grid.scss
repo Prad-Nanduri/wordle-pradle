@@ -3,6 +3,22 @@
     color: white;
 }
 
+.background-yellow {
+    background-color: rgb(181, 159, 59);
+}
+
+.background-grey {
+    background-color: rgb(58, 58, 60);
+}
+
+.background-green {
+    background-color: rgb(83, 141, 78);
+}
+
+.background-black {
+    background: #121213;
+}
+
 .grid-container {
     margin-top: 50px;
     display: flex;
@@ -28,6 +44,17 @@
             height: 50px;
             width: 50px;
             border: 2px solid #565758;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(255, 255, 255);
+            font-size: 2rem;
+            line-height: 2rem;
+            font-size: 32px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-weight: 700;
+            text-transform: uppercase;
         }
     }
 }
