@@ -1,10 +1,28 @@
 import "./grid.scss";
 
 export default function Grid(props) {
-    const tiles = [...Array(props.height).keys()].map((i, _) =>
-        <div className="row" key={`${i}`}>
-            {[...Array(props.width).keys()].map((j, _) => {
-            return (<div className="tile" key={`${i}-${j}`}>{`(${i}, ${j})`}</div>);
+    const tiles = [...Array(props.height).keys()].map((rowNumber, _) =>
+        <div className="row" key={`${rowNumber}`}>
+            {[...Array(props.width).keys()].map((colNumber, _) => {
+            const content = props.content[`${rowNumber},${colNumber}`]
+            if (content){
+                return (
+                    <div 
+                    className={`tile background-${content["color"]}`}
+                    key={`${rowNumber}-${colNumber}`}>
+                    {content["text"]}
+                    </div>
+                );
+
+            } else{
+                
+            return (
+                <div 
+                className="tile"
+                key={`${rowNumber}-${colNumber}`}>
+                </div>
+            );
+            }
         })} 
         </div>
     )
