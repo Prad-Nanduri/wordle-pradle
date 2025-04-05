@@ -2,6 +2,19 @@ html {
   background-color: rgb(18,18,19 );
 }
 
+.grey {
+  background-color: grey;
+}
+
+.background-green {
+  background-color: green;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+
 .winner {
   color: green;
   text-align: center;
@@ -10,6 +23,13 @@ html {
 
 .loser {
   color: red;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.flash {
+  color: white;
+  border: white;
   margin-top: 30px;
   text-align: center;
 }

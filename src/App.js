@@ -2,23 +2,36 @@ import './app.css';
 import Header from './components/header.js';
 import Grid from './components/grid.js';
 import Keyboard from './components/keyboard.js';
+import ALL_WORDS from './components/english.json';
 import {useState, useEffect} from 'react';
 
 function App() {
 
-  const ALL_WORDS = ["MATCH", "PATCH", "TOUCH", "GREEN"]
 
-  const [answerWord, setAnswerWord] = useState("MATCH")
-  const [currentRow, setCurrentRow] = useState(0)
-  const [currentWord, setCurrentWord] = useState("")
-  const [guessedWords, setGuessedWords] = useState([""])
-  const [pressedKey, setPressedKey] = useState("")
   const width = 5
   const height = 6
+  const validEnglishWords = Object.keys(ALL_WORDS)
+  .filter((word) =>  (word.length === width))
+  .map((word) => word.toUpperCase())
+  const [answerWord, setAnswerWord] = useState(validEnglishWords[Math.floor(Math.random()*(validEnglishWords.length))]
+)
+  const [currentRow, setCurrentRow] = useState(0)
+  const [currentWord, setCurrentWord] = useState("")
+  const [guessedWords, setGuessedWords] = useState([])
+  const [pressedKey, setPressedKey] = useState("")
+  const [flashMessage, setFlashMessage] = useState(null)
 
   const onKeyPress = (key) => {
     setPressedKey(key);
     }
+
+    // useEffect(() => {
+    //   if(flashMessage != null){
+        
+    //   }
+    // }, [flashMessage])
+
+
 
   useEffect(() => {
 
@@ -44,19 +57,30 @@ function App() {
 
     if (pressedKey === "ENTER"){
       if (currentWord.length < width) {
+        flash("Not enough letters!")
         console.log ("Not enough letters!")
       } else {
-        if (ALL_WORDS.includes(currentWord)){
+        if (validEnglishWords.includes(currentWord)){
           setCurrentRow(currentRow + 1)
           setGuessedWords(guessedWords.concat(currentWord))
           setCurrentWord("")
         } else {
+          flash("Not in word list")
           console.log("Not in word list")
         }
       }
     }
     setPressedKey("")
   }, [pressedKey])
+
+
+  const flash = (message) => {
+    setFlashMessage(message)
+    setTimeout(() => {
+      setFlashMessage(null)
+    }, 1000)
+  }
+
 
   const getContent = () => {
     const objToReturn = {}
@@ -76,11 +100,11 @@ function App() {
         if (!answerWord.includes(character)){
           color = "grey"
         }else if (answerWord[guessedWordIndex] === character){
-          color = "background-green"
+          color = "green"
         }else {
           color = "yellow"
         }
-        objToReturn[`${gridRowNumber}, ${gridColNumber}`] = {
+        objToReturn[`${gridRowNumber},${gridColNumber}`] = {
           color: color,
           text: character
         }
@@ -97,6 +121,7 @@ function App() {
      <Header />
      {userWon && <div className="winner"> You win! </div>}
      {userLost && <div className="loser"> You lost! </div>}
+     {flashMessage != null && <div className="flash">{flashMessage}</div>}
      <Grid 
       width={width}
       height={height}
