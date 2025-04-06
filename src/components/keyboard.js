@@ -1,7 +1,7 @@
 import './keyboard.scss'
 
 export default function Keyboard(props) {
-    const characterRows = props.keyboardConfig
+    const characterRows = props.keyboardConfiguration
 
     return (
         <div className="keyboard-container">

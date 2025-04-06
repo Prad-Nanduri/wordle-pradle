@@ -1,7 +1,7 @@
 import './game.scss';
-import Header from '../components/new-game';
-import Grid from '../components/new-game';
-import Keyboard from '../components/new-game';
+import Header from './header.js';
+import Grid from './grid.js';
+import Keyboard from './keyboard.js';
 import getLanguageConfigs from "../components/language-configs";
 import {useState, useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
@@ -42,14 +42,6 @@ export default function Game(props) {
         })
     }, [])
 
-    // useEffect(() => {
-    //   if(flashMessage != null){
-        
-    //   }
-    // }, [flashMessage])
-
-
-
   useEffect(() => {
 
     if (pressedKey === ""){
@@ -57,7 +49,7 @@ export default function Game(props) {
     }
 
     if (pressedKey !== 'ENTER' && pressedKey !== 'BACKSPACE'){
-      if (currentWord === width) {
+      if (currentWord.length === width) {
         //do nothing
       } else {
         setCurrentWord (currentWord + pressedKey)
