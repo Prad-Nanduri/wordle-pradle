@@ -24,6 +24,17 @@ export default function NewGame() {
 
     }, [startingGame])
 
+    const onWidthChange = (e) => {
+        setWidth(e.target.value)
+    }
+
+    const onHeightChange = (e) => {
+        setHeight(e.target.value)
+    }
+
+    const onLanguageChange = (e) => {
+        setLanguage(e.target.value)
+    }
 
 return (
     <div className="new-game-container">
@@ -31,38 +42,26 @@ return (
         Configure your Wordle Game!
         </h2>
         <label>Choose a width:</label>
-        <select name="width" id="width">
+        <select name="width" id="width" defaultValue={width} onChange={onWidthChange}>
             {widthChoices.map((widthChoice) => {
-                if (width ===widthChoice){
-                    return (
-                        <option value={widthChoice} selected onChange={(w) => setWidth(w)}>{widthChoice}</option>)
-                }
                 return (
-                     <option value={widthChoice} onChange={(w) => setWidth(w)}>{widthChoice}</option>)
+                     <option key={widthChoice} value={widthChoice}>{widthChoice}</option>)
             })}
         </select>
 
         <label>Choose a height:</label>
-        <select name="height" id="height">
+        <select name="height" id="height" defaultValue={height} onChange={onHeightChange}>
             {heightChoices.map((heightChoice) => {
-                if (height === heightChoice) {
-                    return (
-                        <option value={heightChoice} selected onChange={(h) => setHeight(h)}>{heightChoice}</option>)
-                }
                 return(
-                <option value={heightChoice} onChange={(h) => setHeight(h)}>{heightChoice}</option>)
+                <option key={heightChoice} value={heightChoice}>{heightChoice}</option>)
             })}
         </select>
 
         <label>Choose a language: </label>
-        <select name="height" id="height">
+        <select name="height" id="height" defaultValue={language} onChange={onLanguageChange}>
             {Object.keys(languageChoices).map((languageChoice) => {
-                if (language === languageChoice) {
-                    return(
-                        <option value={languageChoice} selected onChange={(l) => setLanguage(l)}>{languageChoice}</option>)
-                }
                 return(
-                <option value={languageChoice} onChange={(l) => setLanguage(l)}>{languageChoice}</option>)
+                <option key={languageChoice} value={languageChoice}>{languageChoice}</option>)
             })}
         </select>
 

@@ -1,5 +1,4 @@
-export default function GetEnglishWords(){
-    return {
+{
             "a": 1,
             "aa": 1,
             "aaa": 1,
@@ -370101,4 +370100,3 @@ export default function GetEnglishWords(){
             "zwitterion": 1,
             "zwitterionic": 1
     }
-}
