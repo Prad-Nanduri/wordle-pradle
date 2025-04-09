@@ -30,6 +30,17 @@
             padding-left: 15px;
             padding-right: 15px;
 
+            &.background-grey {
+                background-color: rgb(58,58,60);
+            }
+
+            &.background-yellow {
+                background-color: rgb(181,159,59);
+            }
+
+            &.background-green {
+                background-color: rgb(83,141,78);
+            }
         }
     }
 }

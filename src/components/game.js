@@ -11,19 +11,180 @@ export default function Game(props) {
     const width = parseInt(searchParams.get("width"))
     const height = parseInt(searchParams.get("height"))
     const language = searchParams.get("language")
-  const [answerWord, setAnswerWord] = useState(null)
-  const [currentRow, setCurrentRow] = useState(0)
-  const [currentWord, setCurrentWord] = useState("")
-  const [guessedWords, setGuessedWords] = useState([])
+  // const [answerWord, setAnswerWord] = useState(null)
+  // const [currentRow, setCurrentRow] = useState(0)
+  // const [currentWord, setCurrentWord] = useState("")
+  // const [guessedWords, setGuessedWords] = useState([])
   const [pressedKey, setPressedKey] = useState("")
   const [flashMessage, setFlashMessage] = useState(null)
   const [validWords, setValidWords] = useState([])
   const [keyboard, setKeyboard] = useState([])
+  const [letterStates, setLetterStates] = useState({});
+  // const [gameStats, setGameStats] = useState({
+  //   gamesPlayed: 0,
+  //   gamesWon: 0,
+  //   currentStreak: 0,
+  //   maxStreak: 0,
+  //   guessDistribution: {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
+  // });
+
+
+  const [answerWord, setAnswerWord] = useState(() => {
+    const saved = localStorage.getItem('answerWord');
+    return saved || null;
+});
+
+const [currentRow, setCurrentRow] = useState(() => {
+    const saved = localStorage.getItem('currentRow');
+    return saved ? parseInt(saved) : 0;
+});
+
+const [currentWord, setCurrentWord] = useState(() => {
+    const saved = localStorage.getItem('currentWord');
+    return saved || "";
+});
+
+const [guessedWords, setGuessedWords] = useState(() => {
+    const saved = localStorage.getItem('guessedWords');
+    return saved ? JSON.parse(saved) : [];
+});
+
+const [gameStats, setGameStats] = useState(() => {
+    const saved = localStorage.getItem('gameStats');
+    return saved ? JSON.parse(saved) : {
+        gamesPlayed: 0,
+        gamesWon: 0,
+        currentStreak: 0,
+        maxStreak: 0,
+        guessDistribution: {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
+    };
+});
+
+useEffect(() => {
+  if (answerWord) localStorage.setItem('answerWord', answerWord);
+}, [answerWord]);
+
+useEffect(() => {
+  localStorage.setItem('currentRow', currentRow.toString());
+}, [currentRow]);
+
+useEffect(() => {
+  localStorage.setItem('currentWord', currentWord);
+}, [currentWord]);
+
+useEffect(() => {
+  localStorage.setItem('guessedWords', JSON.stringify(guessedWords));
+}, [guessedWords]);
+
+useEffect(() => {
+  localStorage.setItem('gameStats', JSON.stringify(gameStats));
+}, [gameStats]);
+
+const startNewGame = () => {
+  // Clear game-specific localStorage items
+  localStorage.removeItem('answerWord');
+  localStorage.removeItem('currentRow');
+  localStorage.removeItem('currentWord');
+  localStorage.removeItem('guessedWords');
+
+  // Reset states
+  setCurrentRow(0);
+  setCurrentWord("");
+  setGuessedWords([]);
+  setLetterStates({});
+  
+  // Get new answer word
+  if (validWords.length > 0) {
+    const newAnswerWord = validWords[Math.floor(Math.random() * validWords.length)];
+    setAnswerWord(newAnswerWord);
+  }
+};
 
 
   const onKeyPress = (key) => {
     setPressedKey(key);
     }
+
+    const updateLetterStates = (guessedWord) => {
+      const newStates = { ...letterStates };
+      
+      for (let i = 0; i < guessedWord.length; i++) {
+        const letter = guessedWord[i];
+        if (!answerWord.includes(letter)) {
+          newStates[letter] = 'grey';
+        } else if (answerWord[i] === letter) {
+          newStates[letter] = 'green';
+        } else if (!newStates[letter] || newStates[letter] !== 'green') {
+          newStates[letter] = 'yellow';
+        }
+      }
+      
+      setLetterStates(newStates);
+    };
+
+
+    const updateStats = (won) => {
+      setGameStats(prevStats => {
+        const newStats = {...prevStats};
+        newStats.gamesPlayed += 1;
+        
+        if (won) {
+          newStats.gamesWon += 1;
+          newStats.currentStreak += 1;
+          newStats.maxStreak = Math.max(newStats.currentStreak, newStats.maxStreak);
+          newStats.guessDistribution[currentRow] = (newStats.guessDistribution[currentRow] || 0) + 1;
+        } else {
+          newStats.currentStreak = 0;
+        }
+        
+        return newStats;
+      });
+    };
+
+    const StatsDisplay = () => (
+      <div className="stats-container">
+        <h3>Statistics</h3>
+        <div className="stats-grid">
+          <div className="stat-item">
+            <div className="stat-number">{gameStats.gamesPlayed}</div>
+            <div className="stat-label">Played</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number">
+              {Math.round((gameStats.gamesWon / gameStats.gamesPlayed) * 100) || 0}%
+            </div>
+            <div className="stat-label">Win Rate</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number">{gameStats.currentStreak}</div>
+            <div className="stat-label">Current Streak</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number">{gameStats.maxStreak}</div>
+            <div className="stat-label">Best Streak</div>
+          </div>
+        </div>
+      </div>
+    );
+
+
+    // Share functionality
+const shareResults = () => {
+  const emojiGrid = guessedWords.map(word => {
+    return word.split('').map((letter, index) => {
+      if (!answerWord.includes(letter)) return '⬜';
+      if (answerWord[index] === letter) return '🟩';
+      return '🟨';
+    }).join('');
+  }).join('\n');
+
+  const shareText = `Wordle Clone ${currentRow}/6\n\n${emojiGrid}`;
+  
+  navigator.clipboard.writeText(shareText).then(() => {
+    flash('Copied to clipboard!');
+  });
+};
+    
 
    useEffect(() => {
     const config = getLanguageConfigs()[language]
@@ -40,7 +201,7 @@ export default function Game(props) {
             setAnswerWord(validWords[Math.floor(Math.random()*validWords.length)])
             setKeyboard(config.keyboard)
         })
-    }, [])
+    }, [language, width])
 
   useEffect(() => {
 
@@ -70,8 +231,11 @@ export default function Game(props) {
         console.log ("Not enough letters!")
       } else {
         if (validWords.includes(currentWord)){
+          const isWinningWord = currentWord === answerWord;
           setCurrentRow(currentRow + 1)
           setGuessedWords(guessedWords.concat(currentWord))
+          updateLetterStates(currentWord)
+          updateStats(isWinningWord)
           setCurrentWord("")
         } else {
           flash("Not in word list")
@@ -80,7 +244,7 @@ export default function Game(props) {
       }
     }
     setPressedKey("")
-  }, [pressedKey])
+  }, [pressedKey, currentWord, width, validWords, currentRow, guessedWords, updateLetterStates]) 
 
 
   const flash = (message) => {
@@ -125,22 +289,38 @@ export default function Game(props) {
 
   const userWon = guessedWords.includes(answerWord)
   const userLost = !guessedWords.includes(answerWord) && guessedWords.length === height
+
   return (
     <div className="app-container">
-     <Header />
-     {userWon && <div className="winner"> You win! </div>}
-     {userLost && <div className="loser"> You lost! </div>}
-     {flashMessage != null && <div className="flash">{flashMessage}</div>}
-     <Grid 
-      width={width}
-      height={height}
-      content={getContent()}
-     />
+      <Header />
+      {userWon && (
+        <div className="winner">
+          <div>You win!</div>
+          <button onClick={startNewGame}>Start New Game</button>
+          <button onClick={shareResults}>Share Results</button>
+          <StatsDisplay />
+        </div>
+      )}
+      {userLost && (
+        <div className="loser">
+          <div>You lost! The word was {answerWord}</div>
+          <button onClick={startNewGame}>Start New Game</button>
+          <button onClick={shareResults}>Share Results</button>
+          <StatsDisplay />
+        </div>
+      )}
+      {flashMessage != null && <div className="flash">{flashMessage}</div>}
+      <Grid 
+        width={width}
+        height={height}
+        content={getContent()}
+      />
       <Keyboard
         keyboardConfiguration={keyboard}
         onKeyPress={(key) => onKeyPress(key)}
+        letterStates={letterStates}
       />
-    </div>                                                                                                            
+    </div>
   );
 }
 
