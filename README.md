@@ -112,5 +112,4 @@ Please ensure your PR describes the changes and updates any relevant documentati
 
 ## 🙏 Acknowledgments
 
-- Inspired by the original [Wordle](https://www.nytimes.com/games/wordle/index.html) by Josh Wardle
 - Word list sourced from [https://github.com/dwyl/english-words/blob/master/words_dictionary.json]
