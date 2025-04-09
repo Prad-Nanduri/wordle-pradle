@@ -1,5 +1,4 @@
-```markdown
-# PRADLE - Customized Wordle / Wordle but better - Enhanced Word Guessing Game
+# Pradle - Customized Wordle / Wordle but better - Enhanced Word Guessing Game
 
 A dynamic and customizable version of the popular Wordle game that allows players to challenge themselves with varying word lengths and attempt limits.
 Unlike the traditional NY Times Wordle that limits players to 6 attempts at 5-letter words, this enhanced version lets you test your English vocabulary with customizable parameters!
@@ -35,15 +34,23 @@ Unlike the traditional NY Times Wordle that limits players to 6 attempts at 5-le
 - Node.js (v14.0.0 or higher)
 - npm (v6.0.0 or higher)
 
+```
 ### Installation
+
 1. Clone the repository
 
-2. Navigate to project directory
+```bash
+git clone https://github.com/Prad-Nanduri/wordle-pradle.git
+```
+
+3. Navigate to project directory
+
 ```bash
 cd wordle-pradle
 ```
 
 3. Install dependencies
+
 ```bash
 npm install
 ```
@@ -104,15 +111,7 @@ Please ensure your PR describes the changes and updates any relevant documentati
 
 "THESE ARE IDEAS GIVEN BY CLAUDE 3.5 SONNET - not my unique ideas. I made this READMe file with the help of the model as well"
 
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## 🙏 Acknowledgments
 
 - Inspired by the original [Wordle](https://www.nytimes.com/games/wordle/index.html) by Josh Wardle
 - Word list sourced from [https://github.com/dwyl/english-words/blob/master/words_dictionary.json]
-
----
-
-**Note**: This is an enhanced version of Wordle created for educational purposes and to provide additional features not found in the original game.
