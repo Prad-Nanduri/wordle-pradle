@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+```markdown
+# PRADLE - Customized Wordle / Wordle but better - Enhanced Word Guessing Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A dynamic and customizable version of the popular Wordle game that allows players to challenge themselves with varying word lengths and attempt limits.
+Unlike the traditional NY Times Wordle that limits players to 6 attempts at 5-letter words, this enhanced version lets you test your English vocabulary with customizable parameters!
 
-## Available Scripts
+## 🎮 Features
 
-In the project directory, you can run:
+### Core Gameplay
+- **Customizable Word Length**: Choose words from 2 to 8 letters
+- **Adjustable Attempts**: Select anywhere from 2 to 8 attempts to guess the word
+- **Multiple Language Support**: Currently supports English (framework in place for adding more languages)
+- **Color-Coded Feedback**:
+  - 🟩 Green: Letter is correct and in the right position
+  - 🟨 Yellow: Letter is in the word but in wrong position
+  - ⬜ Grey: Letter is not in the word
 
-### `npm start`
+### Enhanced Features
+- **Interactive Keyboard**: On-screen keyboard with color feedback for used letters
+- **Animated Tiles**: Smooth flip animations when revealing guesses
+- **Statistics Tracking**:
+  - Games played
+  - Win percentage
+  - Current streak
+  - Best streak
+  - Guess distribution
+- **Share Results**: Share your game results with friends using emoji grid representation
+- **Game State Management**: 
+  - Persistent game state across browser refreshes
+  - Start new game option after completion
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
+- Node.js (v14.0.0 or higher)
+- npm (v6.0.0 or higher)
 
-### `npm test`
+### Installation
+1. Clone the repository
+```bash
+git clone https://github.com/Prad-Nanduri/wordle-pradle.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Navigate to project directory
+```bash
+cd wordle-pradle
+```
 
-### `npm run build`
+3. Install dependencies
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Start the development server
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🎯 How to Play
 
-### `npm run eject`
+1. **Configure Your Game**:
+   - Select word length (2-8 letters)
+   - Choose number of attempts (2-8 tries)
+   - Select language (English)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. **Start Guessing**:
+   - Type or click letters on the virtual keyboard
+   - Press ENTER to submit your guess
+   - Use BACKSPACE to delete letters
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Use the Feedback**:
+   - Green: Correct letter in correct spot
+   - Yellow: Correct letter in wrong spot
+   - Grey: Letter not in word
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Win or Lose**:
+   - Win by guessing the word within allowed attempts
+   - View statistics and share results after game completion
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🛠️ Technical Stack
 
-## Learn More
+- React.js
+- SCSS for styling
+- Local Storage for game state persistence
+- React Router for nav
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🤝 Contributing
 
-### Code Splitting
+Contributions are welcome! Feel free to:
+1. Fork the repository
+2. Create a feature branch
+3. Submit a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Please ensure your PR describes the changes and updates any relevant documentation.
 
-### Analyzing the Bundle Size
+## 📝 Future Enhancements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [ ] Additional language support
+- [ ] Custom word list upload
+- [ ] Difficulty modes
+- [ ] Multiplayer mode
+- [ ] Time-based challenges
+- [ ] Mobile app version
 
-### Making a Progressive Web App
+"THESE ARE IDEAS GIVEN BY CLAUDE 3.5 SONNET - not my unique ideas. I made this READMe file with the help of the model as well"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📜 License
 
-### Advanced Configuration
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🙏 Acknowledgments
 
-### Deployment
+- Inspired by the original [Wordle](https://www.nytimes.com/games/wordle/index.html) by Josh Wardle
+- Word list sourced from [https://github.com/dwyl/english-words/blob/master/words_dictionary.json]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Note**: This is an enhanced version of Wordle created for educational purposes and to provide additional features not found in the original game.
