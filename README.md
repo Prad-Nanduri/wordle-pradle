@@ -37,9 +37,6 @@ Unlike the traditional NY Times Wordle that limits players to 6 attempts at 5-le
 
 ### Installation
 1. Clone the repository
-```bash
-git clone https://github.com/Prad-Nanduri/wordle-pradle.git
-```
 
 2. Navigate to project directory
 ```bash
