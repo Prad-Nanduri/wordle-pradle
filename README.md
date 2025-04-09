@@ -34,7 +34,6 @@ Unlike the traditional NY Times Wordle that limits players to 6 attempts at 5-le
 - Node.js (v14.0.0 or higher)
 - npm (v6.0.0 or higher)
 
-```
 ### Installation
 
 1. Clone the repository
@@ -43,7 +42,7 @@ Unlike the traditional NY Times Wordle that limits players to 6 attempts at 5-le
 git clone https://github.com/Prad-Nanduri/wordle-pradle.git
 ```
 
-3. Navigate to project directory
+2. Navigate to project directory
 
 ```bash
 cd wordle-pradle
