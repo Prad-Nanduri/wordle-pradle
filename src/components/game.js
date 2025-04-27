@@ -3,7 +3,7 @@ import Header from './header.js';
 import Grid from './grid.js';
 import Keyboard from './keyboard.js';
 import getLanguageConfigs from "../components/language-configs";
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import {useSearchParams} from 'react-router-dom';
 
 export default function Game(props) {
@@ -11,10 +11,7 @@ export default function Game(props) {
     const width = parseInt(searchParams.get("width"))
     const height = parseInt(searchParams.get("height"))
     const language = searchParams.get("language")
-  // const [answerWord, setAnswerWord] = useState(null)
-  // const [currentRow, setCurrentRow] = useState(0)
-  // const [currentWord, setCurrentWord] = useState("")
-  // const [guessedWords, setGuessedWords] = useState([])
+
   const [pressedKey, setPressedKey] = useState("")
   const [flashMessage, setFlashMessage] = useState(null)
   const [validWords, setValidWords] = useState([])
@@ -104,6 +101,27 @@ const startNewGame = () => {
   const onKeyPress = (key) => {
     setPressedKey(key);
     }
+
+    // Accept both upper and lowercase, handle Enter/Backspace
+const handlePhysicalKeyboard = useCallback(
+  (event) => {
+    let key = event.key;
+    if (key.length === 1 && key.match(/[a-zA-Z]/i)) {
+      key = key.toUpperCase();
+      onKeyPress(key);
+    } else if (key === "Enter") {
+      onKeyPress("ENTER");
+    } else if (key === "Backspace") {
+      onKeyPress("BACKSPACE");
+    }
+  },
+  [onKeyPress]
+);
+
+useEffect(() => {
+  window.addEventListener("keydown", handlePhysicalKeyboard);
+  return () => window.removeEventListener("keydown", handlePhysicalKeyboard);
+}, [handlePhysicalKeyboard]);
 
     const updateLetterStates = (guessedWord) => {
       const newStates = { ...letterStates };
@@ -293,22 +311,24 @@ const shareResults = () => {
   return (
     <div className="app-container">
       <Header />
-      {userWon && (
-        <div className="winner">
-          <div>You win!</div>
-          <button onClick={startNewGame}>Start New Game</button>
-          <button onClick={shareResults}>Share Results</button>
-          <StatsDisplay />
-        </div>
-      )}
-      {userLost && (
-        <div className="loser">
-          <div>You lost! The word was {answerWord}</div>
-          <button onClick={startNewGame}>Start New Game</button>
-          <button onClick={shareResults}>Share Results</button>
-          <StatsDisplay />
-        </div>
-      )}
+      {(userWon || userLost) && (
+  <div className="result-box">
+    <div className={`result-headline ${userWon ? "win" : "lose"}`}>
+      {userWon ? "You Win!" : "You Lost"}
+    </div>
+    <div className="result-answer-label">
+      {userWon ? "The answer was:" : "The correct word was:"}
+    </div>
+    <div className={`result-answer-tile ${userWon ? "wordle-green" : "wordle-yellow"}`}>
+      {answerWord}
+    </div>
+    <div className="result-actions">
+      <button className="result-btn-green" onClick={startNewGame}>Start New Game</button>
+      <button className="result-btn-black" onClick={shareResults}>Share Results</button>
+    </div>
+    <StatsDisplay />
+  </div>
+)}
       {flashMessage != null && <div className="flash">{flashMessage}</div>}
       <Grid 
         width={width}

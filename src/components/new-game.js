@@ -7,8 +7,6 @@ export default function NewGame() {
     const navigate = useNavigate()
     const [width, setWidth] = useState(5)
     const [height, setHeight] = useState(6)
-    // const [words, setWords] = useState([])
-    // const [keyboardConfig, setKeyboardConfiguration] =useState([])
     const [language, setLanguage] = useState("English")
     const [startingGame, setStartingGame] = useState(false)
 
@@ -16,60 +14,54 @@ export default function NewGame() {
     const heightChoices = [2, 3, 4, 5, 6, 7, 8]
     const languageChoices = getLanguageConfigs()
         
-
     useEffect(() => {
         if (startingGame){
-        navigate(`/play?width=${width}&height=${height}&language=${language}`)
-    }
+            navigate(`/play?width=${width}&height=${height}&language=${language}`)
+        }
+    }, [startingGame, navigate, width, height, language])
 
-    }, [startingGame])
+    const onWidthChange = (e) => setWidth(e.target.value)
+    const onHeightChange = (e) => setHeight(e.target.value)
+    const onLanguageChange = (e) => setLanguage(e.target.value)
 
-    const onWidthChange = (e) => {
-        setWidth(e.target.value)
-    }
+    return (
+        <div className="new-game-landing">
+            <h1 className="headline">
+                <span>Wordle&nbsp;Reimagined-&nbsp;</span>
+                <span className="headline-gradient">Pradle!</span>
+            </h1>
+            <div className="subtitle">
+                Not boring!<br />
+                <span>
+                Test your<strong> Vocabulary </strong> with fully customizable word length and tries.
+                </span>
+            </div>
+            <div className="config-card">
+                <label>Choose word length</label>
+                <select name="width" defaultValue={width} onChange={onWidthChange}>
+                    {widthChoices.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                    ))}
+                </select>
 
-    const onHeightChange = (e) => {
-        setHeight(e.target.value)
-    }
+                <label>Choose number of tries</label>
+                <select name="height" defaultValue={height} onChange={onHeightChange}>
+                    {heightChoices.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                    ))}
+                </select>
 
-    const onLanguageChange = (e) => {
-        setLanguage(e.target.value)
-    }
+                <label>Choose a language</label>
+                <select name="language" defaultValue={language} onChange={onLanguageChange}>
+                    {Object.keys(languageChoices).map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                    ))}
+                </select>
 
-return (
-    <div className="new-game-container">
-        <h2>
-        Configure your Wordle Game!
-        </h2>
-        <label>Choose a width:</label>
-        <select name="width" id="width" defaultValue={width} onChange={onWidthChange}>
-            {widthChoices.map((widthChoice) => {
-                return (
-                     <option key={widthChoice} value={widthChoice}>{widthChoice}</option>)
-            })}
-        </select>
-
-        <label>Choose a height:</label>
-        <select name="height" id="height" defaultValue={height} onChange={onHeightChange}>
-            {heightChoices.map((heightChoice) => {
-                return(
-                <option key={heightChoice} value={heightChoice}>{heightChoice}</option>)
-            })}
-        </select>
-
-        <label>Choose a language: </label>
-        <select name="height" id="height" defaultValue={language} onChange={onLanguageChange}>
-            {Object.keys(languageChoices).map((languageChoice) => {
-                return(
-                <option key={languageChoice} value={languageChoice}>{languageChoice}</option>)
-            })}
-        </select>
-
-        <button
-        onClick={() => setStartingGame(true)}
-        >
-            Start Game!
-        </button>
-    </div>
-)
+                <button onClick={() => setStartingGame(true)}>
+                    Start Game!
+                </button>
+            </div>
+        </div>
+    )
 }

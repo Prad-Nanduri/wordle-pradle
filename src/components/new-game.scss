@@ -1,24 +1,97 @@
-.new-game-container {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap');
+
+.new-game-landing {
+    min-height: 100vh;
+    background: #101014;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    color: #fff;
+    padding: 0 12px;
+}
 
-    padding: 20px;
+.headline {
+    font-size: 2.8rem;
+    line-height: 1.08;
+    font-weight: 900;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+    text-align: center;
+
+    .headline-gradient {
+        /* NYT Wordle gradient: yellow to green */
+        background: linear-gradient(90deg, #c9b458 0%, #6aaa64 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        font-weight: 900;
+    }
+}
+
+.subtitle {
+    font-size: 1.15rem;
+    color: #c9c8e5;
+    text-align: center;
+    margin-bottom: 32px;
+
+    strong {
+        color: #fff;
+    }
+}
+
+.config-card {
+    background: #181826;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px 0 rgba(24,32,50,0.14);
+    padding: 30px 32px 28px 32px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     label {
-        margin: 10px 0px;    }
+        color: #e7e6ff;
+        font-size: 1.03rem;
+        margin: 12px 0 6px 0;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+    }
 
     select {
-        width: 150px;
-        padding: 10px 0px;
-
+        margin-bottom: 6px;
+        background: #191931;
+        color: #70ffc6;
+        font-family: inherit;
+        font-size: 1.09rem;
+        padding: 9px 16px;
+        border: 2px solid #353560;
+        border-radius: 6px;
+        transition: border 0.2s;
+        &:focus {
+            outline: none;
+            border-color: #6aaa64;
+        }
     }
 
     button {
         margin-top: 20px;
-        height: 70px;
-        width: 150px;
+        padding: 14px 34px;
+        font-size: 1.15rem;
+        font-weight: bold;
+        border-radius: 50px;
+        background: linear-gradient(90deg, #c9b458 10%, #6aaa64 90%);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.15s;
+        box-shadow: 0 3px 24px 0 rgba(106,170,100,0.20);
+
+        &:hover {
+            background: linear-gradient(90deg, #6aaa64 10%, #c9b458 90%);
+            transform: scale(1.04);
+        }
     }
-    
 }

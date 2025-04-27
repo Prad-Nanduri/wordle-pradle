@@ -81,4 +81,17 @@
         }
     }
 }
+
+.tile {
+    color: #fff;
+    font-size: 2rem;
+    transition: background 0.2s;
+    border-radius: 8px;
+    box-shadow: 0 1.5px 5px rgba(40,40,40,0.07);
+}
+
+.background-yellow { background-color: #c9b458; color: #222; }
+.background-green { background-color: #6aaa64; color: #fff; }
+.background-grey { background-color: #787c7e; color: #fff; }
+.background-black { background-color: #1a1a1a; color: #fff; }
 }
